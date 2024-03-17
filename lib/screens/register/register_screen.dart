@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/utils/app_colors.dart';
 
 import '../../constant/assets_path.dart';
 import '../../widgets/custom_auth_textfield.dart';
@@ -41,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
                   textInputType: TextInputType.name,
                   obscureText: false,
                   validator: (text) {
-                    if (text == null || text!.trim().isEmpty) {
+                    if (text == null || text.trim().isEmpty) {
                       return "Please enter your full name.";
                     }
                     return null;
@@ -53,7 +52,7 @@ class RegisterScreen extends StatelessWidget {
                   textInputType: TextInputType.text,
                   obscureText: false,
                   validator: (text) {
-                    if (text == null || text!.trim().isEmpty) {
+                    if (text == null || text.trim().isEmpty) {
                       return "Please enter your user name.";
                     }
                     return null;
@@ -65,7 +64,7 @@ class RegisterScreen extends StatelessWidget {
                   textInputType: TextInputType.emailAddress,
                   obscureText: false,
                   validator: (text) {
-                    if (text == null || text!.trim().isEmpty) {
+                    if (text == null || text.trim().isEmpty) {
                       return "Please enter your email.";
                     }
                     return null;
@@ -77,7 +76,7 @@ class RegisterScreen extends StatelessWidget {
                   textInputType: TextInputType.text,
                   obscureText: true,
                   validator: (text) {
-                    if (text == null || text!.trim().isEmpty) {
+                    if (text == null || text.trim().isEmpty) {
                       return "Please enter password";
                     }
                     if (text.length < 6) {
@@ -92,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
                   textInputType: TextInputType.text,
                   obscureText: true,
                   validator: (text) {
-                    if (text == null || text!.trim().isEmpty) {
+                    if (text == null || text.trim().isEmpty) {
                       return "Please fill the password configration field.";
                     }
                     if (text != passwordController.text) {
@@ -128,11 +127,7 @@ class RegisterScreen extends StatelessWidget {
 
   void loginAccount() {
     if (formKey.currentState?.validate() == true) {
-      print("trueeeeeeeeee");
-
       return;
-    } else {
-      print("falseeeeeeeeee");
     }
   }
 }
