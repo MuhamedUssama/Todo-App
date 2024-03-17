@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/splash/splash.dart';
+import 'routes.dart';
 
 void main() {
   runApp(const TodoApp());
@@ -13,11 +13,13 @@ class TodoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Todo App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      routes: AppRouter.appRoutes,
+      initialRoute: AppRouter.initialRoute,
     );
   }
 }
