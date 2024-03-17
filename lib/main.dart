@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/utils/app_theme.dart';
 
 import 'routes.dart';
 
@@ -14,10 +15,9 @@ class TodoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Todo App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightThemeData,
+      darkTheme: AppTheme.darkThemeData,
+      themeMode: ThemeMode.light,
       routes: AppRouter.appRoutes,
       initialRoute: AppRouter.initialRoute,
     );

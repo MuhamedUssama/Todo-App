@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constant/assets_path.dart';
+
 class SplashScreen extends StatelessWidget {
   static const String routeName = "splash";
 
@@ -8,9 +10,8 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffDFECDB),
       body: Center(
-        child: Image.asset("assets/images/logo.png"),
+        child: Image.asset(AssetsPath.logoImage),
       ),
     );
   }
