@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/screens/login/login_screen.dart';
+import 'package:todo_app/utils/app_colors.dart';
 
 import '../../constant/assets_path.dart';
 import '../../widgets/custom_auth_textfield.dart';
@@ -111,12 +113,32 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    "Login",
+                    "Sign Up",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
                 ),
+                const SizedBox(height: 32),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't have an account?"),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, LoginScreen.routeName);
+                        },
+                        child: const Text(
+                          "Log in",
+                          style: TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )),
+                  ],
+                )
               ],
             ),
           ),
