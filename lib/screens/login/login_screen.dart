@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constant/assets_path.dart';
 import '../../widgets/custom_auth_textfield.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   static const String routeName = "login";
 
@@ -46,7 +47,7 @@ class LoginScreen extends StatelessWidget {
                   labelText: "Password",
                   textInputType: TextInputType.text,
                   obscureText: true,
-                  controller: emailController,
+                  controller: passController,
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
                       return "Please enter your Password";
@@ -56,7 +57,9 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    loginAccount();
+                  },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
@@ -73,5 +76,11 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void loginAccount() {
+    if (formKey.currentState?.validate() == false) {
+      return;
+    }
   }
 }

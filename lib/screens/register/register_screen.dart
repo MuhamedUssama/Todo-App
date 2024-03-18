@@ -105,7 +105,7 @@ class RegisterScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    loginAccount();
+                    signUpAccount();
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -147,7 +147,7 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  void loginAccount() {
+  void signUpAccount() {
     if (formKey.currentState?.validate() == true) {
       return;
     }
