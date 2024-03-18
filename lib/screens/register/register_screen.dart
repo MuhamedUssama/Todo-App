@@ -111,6 +111,11 @@ class RegisterScreen extends StatelessWidget {
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
                     ),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
                   ),
                   child: const Text(
                     "Sign Up",
@@ -138,7 +143,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         )),
                   ],
-                )
+                ),
               ],
             ),
           ),

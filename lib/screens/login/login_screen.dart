@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/screens/register/register_screen.dart';
 
 import '../../constant/assets_path.dart';
+import '../../utils/app_colors.dart';
 import '../../widgets/custom_auth_textfield.dart';
 
 // ignore: must_be_immutable
@@ -64,12 +66,37 @@ class LoginScreen extends StatelessWidget {
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
                     ),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
                   ),
                   child: const Text(
                     "Log In",
                     style: TextStyle(fontSize: 16),
                   ),
-                )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Have account already?"),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, RegisterScreen.routeName);
+                      },
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
