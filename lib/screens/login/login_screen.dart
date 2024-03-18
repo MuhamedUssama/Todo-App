@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/screens/register/register_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../constant/assets_path.dart';
 import '../../utils/app_colors.dart';
@@ -108,6 +109,17 @@ class LoginScreen extends StatelessWidget {
   void loginAccount() {
     if (formKey.currentState?.validate() == false) {
       return;
+    }
+
+    try {
+      final result = FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passController.text);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
     }
   }
 }
