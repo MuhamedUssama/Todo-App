@@ -15,6 +15,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("To Do List"),
+      ),
       body: currentIndex == 0 ? const ListScreen() : const SettingScreen(),
       floatingActionButton: buildFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -23,24 +26,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildBottomNavigationBar() => BottomAppBar(
-        shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: BottomNavigationBar(
           currentIndex: currentIndex,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.list, size: 28), label: ""),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings, size: 28), label: ""),
           ],
-          selectedItemColor: Theme.of(context).primaryColor,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
         ),
       );
 
