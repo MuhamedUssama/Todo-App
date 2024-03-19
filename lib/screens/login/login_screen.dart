@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/database/users_dao.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/providers/auth_provider.dart';
 import 'package:todo_app/screens/register/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -113,13 +114,10 @@ class LoginScreen extends StatelessWidget {
       return;
     }
 
-    try {
-      final result = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passController.text,
-      );
+    var authProvider = Provider.of<AuthProviderClass>(context, listen: false);
 
-      UserDao.getUser(result.user!.uid);
+    try {
+      await authProvider.login(emailController.text, passController.text);
 
       DialogUtils.showDialogUtils(
           context: context,
@@ -129,8 +127,6 @@ class LoginScreen extends StatelessWidget {
           function: () {
             Navigator.pushReplacementNamed(context, HomeScreen.routeName);
           });
-
-      print(result);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         DialogUtils.showDialogUtils(

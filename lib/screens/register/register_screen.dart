@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:todo_app/database/model/user_model.dart' as my_user;
+import 'package:provider/provider.dart';
 import 'package:todo_app/screens/login/login_screen.dart';
 import 'package:todo_app/utils/app_colors.dart';
 
 import '../../constant/assets_path.dart';
 import '../../constant/firebase_error_strings.dart';
-import '../../database/users_dao.dart';
+import '../../providers/auth_provider.dart';
 import '../../utils/dialog_utils.dart';
 import '../../widgets/custom_auth_textfield.dart';
 
@@ -171,19 +171,15 @@ class RegisterScreen extends StatelessWidget {
     if (formKey.currentState?.validate() == false) {
       return;
     }
-    try {
-      final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
 
-      await UserDao.createUser(
-        my_user.User(
-          id: result.user?.uid,
-          fullName: fullNameController.text,
-          userName: userNameController.text,
-          email: emailController.text,
-        ),
+    var authProvider = Provider.of<AuthProviderClass>(context, listen: false);
+
+    try {
+      await authProvider.register(
+        emailController.text,
+        passwordController.text,
+        fullNameController.text,
+        userNameController.text,
       );
 
       DialogUtils.showDialogUtils(
@@ -195,8 +191,6 @@ class RegisterScreen extends StatelessWidget {
           function: () {
             Navigator.pushReplacementNamed(context, LoginScreen.routeName);
           });
-
-      print(result.user?.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == ErrorStrings.weakPassword) {
         DialogUtils.showDialogUtils(

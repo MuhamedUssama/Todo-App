@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/providers/auth_provider.dart';
 import 'package:todo_app/utils/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -10,7 +12,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const TodoApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AuthProviderClass(),
+      child: const TodoApp(),
+    ),
+  );
 }
 
 class TodoApp extends StatelessWidget {
