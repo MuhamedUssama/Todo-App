@@ -6,6 +6,9 @@ abstract class AppTheme {
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
     primaryColor: AppColors.primaryColor,
     scaffoldBackgroundColor: AppColors.laightScaffoldBackgroundColor,
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primaryColor,
+    ),
   );
 
   static ThemeData darkThemeData = ThemeData(
