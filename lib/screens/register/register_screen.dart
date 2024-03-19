@@ -8,28 +8,27 @@ import '../../constant/firebase_error_strings.dart';
 import '../../utils/dialog_utils.dart';
 import '../../widgets/custom_auth_textfield.dart';
 
-// ignore: must_be_immutable
 class RegisterScreen extends StatelessWidget {
   static const String routeName = "register";
 
   RegisterScreen({super.key});
 
-  TextEditingController fullNameController =
+  final TextEditingController fullNameController =
       TextEditingController(text: "mohamed");
 
-  TextEditingController userNameController =
+  final TextEditingController userNameController =
       TextEditingController(text: "mohamed");
 
-  TextEditingController emailController =
+  final TextEditingController emailController =
       TextEditingController(text: "mohamed3@gmail.com");
 
-  TextEditingController passwordController =
+  final TextEditingController passwordController =
       TextEditingController(text: "123456");
 
-  TextEditingController passwordConfigController =
+  final TextEditingController passwordConfigController =
       TextEditingController(text: "123456");
 
-  var formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

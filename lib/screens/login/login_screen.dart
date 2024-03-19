@@ -6,14 +6,13 @@ import '../../constant/assets_path.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/custom_auth_textfield.dart';
 
-// ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   static const String routeName = "login";
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
 
-  var formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   LoginScreen({super.key});
 
@@ -114,6 +113,8 @@ class LoginScreen extends StatelessWidget {
     try {
       final result = FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passController.text);
+
+      print(result);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
