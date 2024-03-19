@@ -18,4 +18,11 @@ class UserDao {
     var doc = userCollection.doc(user.id);
     return doc.set(user);
   }
+
+  static Future<User?> getUser(String uid) async {
+    var userCollection = getUsersCollection();
+    var doc = userCollection.doc(uid);
+    var docSnapshot = await doc.get();
+    return docSnapshot.data();
+  }
 }

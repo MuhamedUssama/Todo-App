@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/database/users_dao.dart';
 import 'package:todo_app/screens/register/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../constant/assets_path.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/dialog_utils.dart';
 import '../../widgets/custom_auth_textfield.dart';
+import '../home/home.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = "login";
@@ -60,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () {
-                    loginAccount();
+                    loginAccount(context);
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -105,22 +108,58 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void loginAccount() {
+  void loginAccount(BuildContext context) async {
     if (formKey.currentState?.validate() == false) {
       return;
     }
 
     try {
-      final result = FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passController.text);
+      final result = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passController.text,
+      );
+
+      UserDao.getUser(result.user!.uid);
+
+      DialogUtils.showDialogUtils(
+          context: context,
+          title: "Logged In Successfully",
+          content: "Welcome Sir, Enjoy in your journey ^^",
+          textButton: "Go",
+          function: () {
+            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          });
 
       print(result);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        DialogUtils.showDialogUtils(
+            context: context,
+            title: "Error",
+            content: "No user found for that email.",
+            textButton: "Close",
+            function: () {
+              Navigator.pop(context);
+            });
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        DialogUtils.showDialogUtils(
+            context: context,
+            title: "Error",
+            content: 'Wrong password provided for that user.',
+            textButton: "Close",
+            function: () {
+              Navigator.pop(context);
+            });
       }
+    } catch (e) {
+      DialogUtils.showDialogUtils(
+          context: context,
+          title: "Error",
+          content: "$e",
+          textButton: "Close",
+          function: () {
+            Navigator.pop(context);
+          });
     }
   }
 }

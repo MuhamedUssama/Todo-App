@@ -15,20 +15,16 @@ class RegisterScreen extends StatelessWidget {
 
   RegisterScreen({super.key});
 
-  final TextEditingController fullNameController =
-      TextEditingController(text: "mohamed");
+  final TextEditingController fullNameController = TextEditingController();
 
-  final TextEditingController userNameController =
-      TextEditingController(text: "mohamed");
+  final TextEditingController userNameController = TextEditingController();
 
-  final TextEditingController emailController =
-      TextEditingController(text: "mohamed5@gmail.com");
+  final TextEditingController emailController = TextEditingController();
 
-  final TextEditingController passwordController =
-      TextEditingController(text: "123456");
+  final TextEditingController passwordController = TextEditingController();
 
   final TextEditingController passwordConfigController =
-      TextEditingController(text: "123456");
+      TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -211,7 +207,6 @@ class RegisterScreen extends StatelessWidget {
             function: () {
               Navigator.pop(context);
             });
-        print('The password provided is too weak.');
       } else if (e.code == ErrorStrings.emailInUse) {
         DialogUtils.showDialogUtils(
             context: context,
@@ -221,11 +216,16 @@ class RegisterScreen extends StatelessWidget {
             function: () {
               Navigator.pop(context);
             });
-
-        print('The account already exists for that email.');
       }
     } catch (e) {
-      print(e);
+      DialogUtils.showDialogUtils(
+          context: context,
+          title: "Error",
+          content: "$e",
+          textButton: "Close",
+          function: () {
+            Navigator.pop(context);
+          });
     }
   }
 }
