@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todo_app/database/model/user_model.dart' as my_user;
 import 'package:todo_app/screens/login/login_screen.dart';
 import 'package:todo_app/utils/app_colors.dart';
 
 import '../../constant/assets_path.dart';
 import '../../constant/firebase_error_strings.dart';
+import '../../database/users_dao.dart';
 import '../../utils/dialog_utils.dart';
 import '../../widgets/custom_auth_textfield.dart';
 
@@ -20,7 +22,7 @@ class RegisterScreen extends StatelessWidget {
       TextEditingController(text: "mohamed");
 
   final TextEditingController emailController =
-      TextEditingController(text: "mohamed3@gmail.com");
+      TextEditingController(text: "mohamed5@gmail.com");
 
   final TextEditingController passwordController =
       TextEditingController(text: "123456");
@@ -177,6 +179,15 @@ class RegisterScreen extends StatelessWidget {
       final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
+      );
+
+      await UserDao.createUser(
+        my_user.User(
+          id: result.user?.uid,
+          fullName: fullNameController.text,
+          userName: userNameController.text,
+          email: emailController.text,
+        ),
       );
 
       DialogUtils.showDialogUtils(
