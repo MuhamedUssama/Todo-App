@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/providers/auth_provider.dart';
 import 'package:todo_app/screens/home/list_tab/list_tab_screen.dart';
 import 'package:todo_app/screens/home/setting_tab/setting_tab_screen.dart';
 
@@ -14,9 +16,18 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProviderClass>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("To Do List"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              authProvider.logout();
+            },
+            icon: const Icon(Icons.logout_outlined),
+          )
+        ],
       ),
       body: currentIndex == 0 ? const ListScreen() : const SettingScreen(),
       floatingActionButton: buildFloatingActionButton(),

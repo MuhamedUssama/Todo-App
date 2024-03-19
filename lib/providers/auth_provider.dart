@@ -35,4 +35,9 @@ class AuthProviderClass extends ChangeNotifier {
     userDatabase = user;
     userFirebase = result.user;
   }
+
+  void logout() {
+    userDatabase = null;
+    FirebaseAuth.instance.signOut();
+  }
 }
