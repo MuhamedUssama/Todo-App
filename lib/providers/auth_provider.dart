@@ -40,4 +40,13 @@ class AuthProviderClass extends ChangeNotifier {
     userDatabase = null;
     FirebaseAuth.instance.signOut();
   }
+
+  bool isUserLoggedInBefore() {
+    return FirebaseAuth.instance.currentUser != null;
+  }
+
+  Future<void> retriveUserFromDatabase() async {
+    userFirebase = FirebaseAuth.instance.currentUser;
+    userDatabase = await UserDao.getUser(userFirebase!.uid);
+  }
 }

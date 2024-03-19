@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/providers/auth_provider.dart';
 import 'package:todo_app/screens/home/list_tab/list_tab_screen.dart';
 import 'package:todo_app/screens/home/setting_tab/setting_tab_screen.dart';
+import 'package:todo_app/screens/login/login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "home";
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             onPressed: () {
               authProvider.logout();
+              Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
             },
             icon: const Icon(Icons.logout_outlined),
           )
