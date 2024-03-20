@@ -5,6 +5,8 @@ import 'package:todo_app/screens/home/list_tab/list_tab_screen.dart';
 import 'package:todo_app/screens/home/setting_tab/setting_tab_screen.dart';
 import 'package:todo_app/screens/login/login_screen.dart';
 
+import '../../widgets/tasks_bottom_sheet.dart';
+
 class HomeScreen extends StatefulWidget {
   static const String routeName = "home";
   const HomeScreen({super.key});
@@ -57,7 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
   Widget buildFloatingActionButton() => FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showAddTaskBottmSheet();
+        },
         shape: const StadiumBorder(
           side: BorderSide(
             width: 4,
@@ -66,4 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: const Icon(Icons.add),
       );
+
+  void showAddTaskBottmSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => AddTaskBottomSheet(),
+      backgroundColor: Colors.transparent,
+    );
+  }
 }
