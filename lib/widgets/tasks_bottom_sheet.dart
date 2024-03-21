@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';
 
-class AddTaskBottomSheet extends StatelessWidget {
+class AddTaskBottomSheet extends StatefulWidget {
+  const AddTaskBottomSheet({super.key});
+
+  @override
+  State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
+}
+
+class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   final TextEditingController titleController = TextEditingController();
+
   final TextEditingController descriptionController = TextEditingController();
 
-  var formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  AddTaskBottomSheet({super.key});
+  final DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +68,22 @@ class AddTaskBottomSheet extends StatelessWidget {
               ),
               const SizedBox(height: 26),
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Select Time",
-                    style: TextStyle(
-                      color: Theme.of(context).unselectedWidgetColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                  InkWell(
+                    child: Text(
+                      selectedDateToRetturn == null
+                          ? "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"
+                          : "${selectedDateToRetturn!.day}/${selectedDateToRetturn!.month}/${selectedDateToRetturn!.year}",
+                      style: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
+                    onTap: () {
+                      showTaskDatePicker();
+                    },
                   ),
                 ],
               ),
@@ -97,5 +112,20 @@ class AddTaskBottomSheet extends StatelessWidget {
     if (formKey.currentState!.validate() == false) {
       return;
     }
+  }
+
+  DateTime? selectedDateToRetturn;
+
+  void showTaskDatePicker() async {
+    DateTime? date = await showDatePicker(
+      context: context,
+      initialDate: selectedDateToRetturn ?? selectedDate,
+      firstDate: selectedDate,
+      lastDate: selectedDate.add(const Duration(days: 365)),
+    );
+
+    setState(() {
+      selectedDateToRetturn = date;
+    });
   }
 }
