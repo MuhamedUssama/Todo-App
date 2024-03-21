@@ -15,9 +15,9 @@ class TaskDao {
         );
   }
 
-  void createTask(Task task, String uid) {
+  static Future<void> createTask(Task task, String uid) {
     var taskCollection = getTaskCollection(uid).doc();
     task.id = taskCollection.id;
-    taskCollection.set(task);
+    return taskCollection.set(task);
   }
 }

@@ -1,5 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/database/model/task_model.dart';
+import 'package:todo_app/database/tasks_dao.dart';
+import 'package:todo_app/providers/auth_provider.dart';
 import 'package:todo_app/widgets/custom_text_field.dart';
+
+import '../utils/dialog_utils.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -108,9 +115,41 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
     );
   }
 
-  void addTask() {
+  void addTask() async {
     if (formKey.currentState!.validate() == false) {
       return;
+    }
+
+    var authProvider = Provider.of<AuthProviderClass>(context, listen: false);
+
+    Task task = Task(
+      title: titleController.text,
+      description: descriptionController.text,
+      date: Timestamp.fromMillisecondsSinceEpoch(
+          selectedDateToRetturn!.millisecondsSinceEpoch),
+    );
+
+    try {
+      await TaskDao.createTask(task, authProvider.userDatabase!.id!);
+
+      DialogUtils.showDialogUtils(
+          context: context,
+          title: "Task Added Successfully",
+          content:
+              "Believe in your potential and push yourself to accomplish tasks beyond your limits.",
+          textButton: "Ok",
+          function: () {
+            Navigator.pop(context);
+          });
+    } catch (e) {
+      DialogUtils.showDialogUtils(
+          context: context,
+          title: "Error",
+          content: "$e",
+          textButton: "Close",
+          function: () {
+            Navigator.pop(context);
+          });
     }
   }
 
