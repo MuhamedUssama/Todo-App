@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Task {
   static const String collectionName = "Tasks";
   String? id;
   String? title;
   String? description;
   bool? isDone;
-  DateTime? date;
+  Timestamp? date;
 
-  Task({this.id, this.title, this.description, this.isDone, this.date});
+  Task({this.id, this.title, this.description, this.isDone = false, this.date});
 
   Map<String, dynamic> toFireStore() {
     return {
