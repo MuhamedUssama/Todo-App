@@ -27,4 +27,8 @@ class TaskDao {
     var tasksList = tasksSnapshot.docs.map((obj) => obj.data()).toList();
     return tasksList;
   }
+
+  static Future<void> removeTask(String taskId, String uid) {
+    return getTaskCollection(uid).doc(taskId).delete();
+  }
 }

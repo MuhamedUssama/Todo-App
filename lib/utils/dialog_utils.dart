@@ -7,6 +7,8 @@ class DialogUtils {
     required String content,
     required Function function,
     required String textButton,
+    String? textButton2,
+    Function? function2,
   }) {
     showDialog(
       context: context,
@@ -20,6 +22,15 @@ class DialogUtils {
               function();
             },
             child: Text(textButton),
+          ),
+          Visibility(
+            visible: textButton2 == null ? false : true,
+            child: TextButton(
+              onPressed: () {
+                function2!();
+              },
+              child: Text(textButton2 ?? ''),
+            ),
           )
         ],
       ),
