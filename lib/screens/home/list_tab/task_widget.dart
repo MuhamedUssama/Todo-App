@@ -116,6 +116,7 @@ class _TaskWidgetState extends State<TaskWidget> {
       content: "Are you sure, Do you want to delete this task?",
       function: () {
         deleteTaskFromFireStore();
+        Navigator.pop(context);
       },
       textButton: "Yes",
       textButton2: "No",

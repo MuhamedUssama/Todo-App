@@ -22,10 +22,18 @@ class TaskDao {
   }
 
   static Future<List<Task>> getAllTasks(String uid) async {
+    // Read Data Once
     var tasksSnapshot = await getTaskCollection(uid).get();
     // 3shan ahwl mn no3 list le no3 list tania
     var tasksList = tasksSnapshot.docs.map((obj) => obj.data()).toList();
     return tasksList;
+  }
+
+  static Stream<List<Task>> listenAllTasks(String uid) async* {
+    // Read Data RealTime
+    var stream = getTaskCollection(uid).snapshots();
+    yield* stream.map((querySnapShots) =>
+        querySnapShots.docs.map((doc) => doc.data()).toList());
   }
 
   static Future<void> removeTask(String taskId, String uid) {

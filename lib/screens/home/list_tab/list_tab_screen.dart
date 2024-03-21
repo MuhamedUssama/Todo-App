@@ -14,8 +14,8 @@ class ListScreen extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: FutureBuilder(
-            future: TaskDao.getAllTasks(authProvider.userDatabase?.id ?? ""),
+          child: StreamBuilder(
+            stream: TaskDao.listenAllTasks(authProvider.userDatabase?.id ?? ""),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 // Loding Data
@@ -29,7 +29,13 @@ class ListScreen extends StatelessWidget {
                 // Error Occured
                 return const Center(child: Text("An error occured!"));
               }
+              // Bahwl El docs of querySnapShots le list
+              // var taskList =
+              //     snapshot.data!.docs.map((obj) => obj.data()).toList();
+
+              // aw ahwlha henak w atb3ha hena 3la tuul
               var taskList = snapshot.data;
+
               return ListView.builder(
                   itemBuilder: (context, index) {
                     return TaskWidget(
