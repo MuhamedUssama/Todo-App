@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/database/tasks_dao.dart';
+import 'package:todo_app/providers/auth_provider.dart';
 
 class ListScreen extends StatelessWidget {
   static const String routeName = "list";
@@ -6,6 +9,35 @@ class ListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    var authProvider = Provider.of<AuthProviderClass>(context);
+    return Column(
+      children: [
+        Expanded(
+          child: FutureBuilder(
+            future: TaskDao.getAllTasks(authProvider.userDatabase?.id ?? ""),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                // Loding Data
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                );
+              }
+              if (snapshot.hasError) {
+                // Error Occured
+                return const Center(child: Text("An error occured!"));
+              }
+              var taskList = snapshot.data;
+              return ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Text(taskList[index].title ?? "");
+                  },
+                  itemCount: taskList!.length);
+            },
+          ),
+        ),
+      ],
+    );
   }
 }
