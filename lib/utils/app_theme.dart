@@ -7,6 +7,7 @@ abstract class AppTheme {
       primary: AppColors.primaryColor,
       secondary: Colors.white,
       tertiary: Colors.black,
+      onPrimaryContainer: Colors.white,
     ),
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.white),
@@ -44,6 +45,7 @@ abstract class AppTheme {
       primary: AppColors.primaryColor,
       secondary: Colors.white,
       tertiary: AppColors.darkUnSelectedIconNavigationBar,
+      onPrimaryContainer: const Color(0XFF141922),
     ),
     textTheme: TextTheme(
       bodyLarge: const TextStyle(color: AppColors.darkScaffoldBackgroundColor),

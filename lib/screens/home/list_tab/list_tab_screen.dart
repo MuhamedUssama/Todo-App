@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/database/tasks_dao.dart';
 import 'package:todo_app/providers/auth_provider.dart';
+import 'package:todo_app/screens/home/list_tab/task_widget.dart';
 
 class ListScreen extends StatelessWidget {
   static const String routeName = "list";
@@ -31,7 +32,9 @@ class ListScreen extends StatelessWidget {
               var taskList = snapshot.data;
               return ListView.builder(
                   itemBuilder: (context, index) {
-                    return Text(taskList[index].title ?? "");
+                    return TaskWidget(
+                      task: taskList[index],
+                    );
                   },
                   itemCount: taskList!.length);
             },
